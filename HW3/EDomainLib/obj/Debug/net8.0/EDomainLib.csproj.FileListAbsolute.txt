@@ -1,0 +1,5 @@
+C:\Users\georg\source\repos\SoftwareDesignHW3\EDomainLib\obj\Debug\net8.0\EDomainLib.csproj.AssemblyReference.cache
+C:\Users\georg\source\repos\SoftwareDesignHW3\EDomainLib\obj\Debug\net8.0\EDomainLib.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\georg\source\repos\SoftwareDesignHW3\EDomainLib\obj\Debug\net8.0\EDomainLib.AssemblyInfoInputs.cache
+C:\Users\georg\source\repos\SoftwareDesignHW3\EDomainLib\obj\Debug\net8.0\EDomainLib.AssemblyInfo.cs
+C:\Users\georg\source\repos\SoftwareDesignHW3\EDomainLib\obj\Debug\net8.0\EDomainLib.csproj.CoreCompileInputs.cache

@@ -1,0 +1,58 @@
+services:
+  filestoring:
+    build:
+      context: .
+      dockerfile: FileStoringService/Dockerfile
+    container_name: filestoring
+    ports:
+      - "5001:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Data Source=/app/data/filestoring.db
+      - Storage__UploadPath=/app/uploads
+    volumes:
+      - ./data/filestoring/uploads:/app/uploads
+      - ./data/filestoring/data:/app/data
+    networks:
+      - apinet
+
+  fileanalysis:
+    build:
+      context: .
+      dockerfile: FileAnalysisService/Dockerfile
+    container_name: fileanalysis
+    ports:
+      - "5002:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Data Source=/app/data/fileanalysis.db
+      - Storage__ReportsPath=/app/reports
+    volumes:
+      - ./data/filestoring/uploads:/app/uploads
+      - ./data/fileanalysis/reports:/app/reports
+      - ./data/fileanalysis/data:/app/data
+    networks:
+      - apinet
+    depends_on:
+      - filestoring
+
+  gateway:
+    build:
+      context: .
+      dockerfile: ApiGateway/Dockerfile
+    container_name: apigateway
+    ports:
+      - "5000:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - Downstream__FileStoring__BaseUrl=http://filestoring:80
+      - Downstream__FileAnalysis__BaseUrl=http://fileanalysis:80
+    depends_on:
+      - filestoring
+      - fileanalysis
+    networks:
+      - apinet
+
+networks:
+  apinet:
+    driver: bridge
